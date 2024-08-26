@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "ssmr.email.no-reply",
+      "type": "java.lang.String",
+      "description": "Email address that the email will be sent from"
+    },
+    {
+      "name": "ssmr.email.send-grid",
+      "type": "java.lang.String",
+      "description": "API KEY from SendGrid."
+    }
+  ]
+}
