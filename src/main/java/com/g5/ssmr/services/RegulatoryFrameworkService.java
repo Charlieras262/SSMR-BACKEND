@@ -62,6 +62,7 @@ public class RegulatoryFrameworkService {
         );
 
         return RegulatoryFrameworkDto.builder()
+                .id(regulatoryFramework.getId())
                 .nombre(regulatoryFramework.getNombre())
                 .descripcion(regulatoryFramework.getDescripcion())
                 .documento(regulatoryFramework.getDocRespaldo())
