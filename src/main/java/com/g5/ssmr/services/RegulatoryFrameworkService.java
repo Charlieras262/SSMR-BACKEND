@@ -85,14 +85,14 @@ public class RegulatoryFrameworkService {
         regulatoryFramework.setDocRespaldo(dto.getDocumento());
         regulatoryFrameworkRepository.save(regulatoryFramework);
 
-        requirementRepository.deleteByMarcoRegulatorio(id);
+        // requirementRepository.deleteByMarcoRegulatorio(id);
         dto.getRequisitos().forEach(requirement -> {
-            requirementRepository.save(Requirement.builder()
-                    .nombre(requirement.getNombre())
-                    .descripcion(requirement.getDescripcion())
-                    .marcoRegulatorio(regulatoryFramework.getId())
-                    .build()
-            );
+            final Requirement requirement1 = requirementRepository.findById(requirement.getId()).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro el id del marco regulatorio."));
+            requirement1.setNombre(requirement.getNombre());
+            requirement1.setDescripcion(requirement.getDescripcion());
+            requirement1.setMarcoRegulatorio(regulatoryFramework.getId());
+            requirementRepository.save(requirement1);
         });
     }
 
