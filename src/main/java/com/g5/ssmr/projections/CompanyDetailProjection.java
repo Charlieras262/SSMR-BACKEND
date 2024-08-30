@@ -5,4 +5,5 @@ public interface CompanyDetailProjection {
     String getNombre();
     String getDescripcion();
     String getRepresentante();
+    String getIdRepresentante();
 }

@@ -17,7 +17,7 @@ public interface CompanyRepository extends CrudRepository<Company, Integer> {
             "inner join g5_ssmr.users u on e.representante = u.id_user \n", nativeQuery = true)
     List<CompanyDetailProjection> getAll();
 
-    @Query(value = "select e.id, e.nombre, e.descripcion, u.\"name\" as representante from g5_ssmr.empresas e \n" +
+    @Query(value = "select e.id, e.nombre, e.descripcion, u.\"name\" as representante, e.representante as \"idRepresentante\" from g5_ssmr.empresas e \n" +
             "inner join g5_ssmr.users u on e.representante = u.id_user \n" +
             "where e.id = :company", nativeQuery = true)
     Optional<CompanyDetailProjection> getById(@Param("company") int company);
