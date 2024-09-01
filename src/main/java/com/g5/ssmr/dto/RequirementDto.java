@@ -15,4 +15,5 @@ public class RequirementDto {
     private String nombre;
     private String descripcion;
     private Integer estado;
+    private String respaldo;
 }

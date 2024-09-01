@@ -62,6 +62,7 @@ public class AuditService {
         final RegulatoryFrameworkDto rf = regulatoryFrameworkService.getRegulatoryFrameworkById(audit.getMarcoRegulatorio());
 
         rf.getRequisitos().forEach(requirement -> requirement.setEstado(resulRepository.findByAuditoriaAndRequisito(id, requirement.getId())));
+        rf.getRequisitos().forEach(requirement -> requirement.setRespaldo(resulRepository.findByAuditoriaAndRequisitoRespaldo(id, requirement.getId())));
 
         return AuditDetailDto.builder()
                 .auditoriaDetalle(auditDetail)
@@ -81,10 +82,11 @@ public class AuditService {
         audit.setIdEstado(Catalog.AuditStatus.IN_PROCESS);
         auditRepository.save(audit);
 
-        resulRepository.deleteAllByAuditoria(id);
-
         results.forEach(result -> {
+            Integer idAudit = resulRepository.findByAuditoriaAndRequisito2(id, result.getRequisito());
+            System.out.println("Id de la auditoria" + idAudit);
             resulRepository.save(AuditResult.builder()
+                    .id(idAudit)
                     .auditoria(id)
                     .requisito(result.getRequisito())
                     .idResultado(result.getResultado())
