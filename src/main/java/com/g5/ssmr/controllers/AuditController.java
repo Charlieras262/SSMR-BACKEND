@@ -30,10 +30,10 @@ public class AuditController {
         auditService.createAudit(audit);
     }
 
-    @GetMapping("internal/audit")
+    @GetMapping("internal/audit/username")
     @ApiOperation(value = "Retorna todas las auditorias registradas")
-    public List<AuditDetailProjection> getAllAudits() {
-        return auditService.getAllAudits();
+    public List<AuditDetailProjection> getAllAuditsUser(@RequestHeader HttpHeaders headers) {
+        return auditService.getAllAuditsUser(headers);
     }
 
     @GetMapping("internal/audit/company")

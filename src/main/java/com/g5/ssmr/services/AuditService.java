@@ -37,12 +37,14 @@ public class AuditService {
                 .empresa(dto.getEmpresa())
                 .marcoRegulatorio(dto.getMarcoRegulatorio())
                 .idEstado(Catalog.AuditStatus.CREATED)
+                .auditor(dto.getAuditor())
                 .build()
         );
     }
 
-    public List<AuditDetailProjection> getAllAudits() {
-        return auditRepository.getAll();
+    public List<AuditDetailProjection> getAllAuditsUser(HttpHeaders headers) {
+        final String username = JwtUtil.parseToken(headers.getFirst("Authorization"));
+        return auditRepository.getAllUser(username);
     }
 
     public List<AuditDetailProjection> getAllAudits(HttpHeaders headers) {

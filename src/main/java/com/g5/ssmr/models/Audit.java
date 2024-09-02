@@ -31,4 +31,7 @@ public class Audit {
 
     @Column(name = "observaciones", length = 300)
     private String observaciones;
+
+    @Column(name = "auditor")
+    private String auditor;
 }

@@ -5,4 +5,6 @@ public interface AuditDetailProjection {
     String getEmpresa();
     String getMarcoRegulatorio();
     String getEstado();
+    String getObservaciones();
+    String getNombreAuditor();
 }

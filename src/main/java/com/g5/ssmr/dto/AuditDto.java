@@ -6,4 +6,5 @@ import lombok.Data;
 public class AuditDto {
     private Integer empresa;
     private Integer marcoRegulatorio;
+    private String auditor;
 }
