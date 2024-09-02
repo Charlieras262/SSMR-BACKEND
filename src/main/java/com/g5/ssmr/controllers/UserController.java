@@ -38,6 +38,12 @@ public class UserController {
         return userService.getAllUsers(headers);
     }
 
+    @GetMapping(value = "internal/users/find/companies")
+    @ApiOperation(value = "Retorna todos los usuarios registrados en el sistema.")
+    public List<UserDetailProjection> getAllUserCompanies(@RequestHeader HttpHeaders headers) {
+        return userService.getAllUsersCompanies(headers);
+    }
+
     @GetMapping(value = "internal/users/find/{userId}")
     @ApiOperation(value = "Retorna todos los usuarios registrados en el sistema.")
     public UserProfileDto getUser(@PathVariable String userId) {

@@ -61,6 +61,22 @@ public class UserService {
      * Este metodo es de solo lectura (no se adhiere a una transacción existente) encargado de consultar todos los usuarios
      * registrados en base de datos.
      *
+     * @return Lista de {@link User} registrados en la base de datos.
+     * @author Carlos Ramos (cramosl3@miumg.edu.gt)
+     */
+    @Transactional(readOnly = true)
+    public List<UserDetailProjection> getAllUsersCompanies(HttpHeaders headers) {
+        final String username = JwtUtil.parseToken(headers.getFirst("Authorization"));
+        if (!userRoleRepository.existsByIdUserAndIdRoleIsIn(username, Arrays.asList(Catalog.UserRole.ROOT, Catalog.UserRole.ADMIN))) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No tiene los permisos para poder realizar esta acción.");
+        }
+        return userRepository.findAllCompanies();
+    }
+
+    /**
+     * Este metodo es de solo lectura (no se adhiere a una transacción existente) encargado de consultar todos los usuarios
+     * registrados en base de datos.
+     *
      * @return Usuario {@link User} registrado en la base de datos.
      * @author Carlos Ramos (cramosl3@miumg.edu.gt)
      */
@@ -159,6 +175,10 @@ public class UserService {
         }
 
         user.setPassword(BCrypt.hashpw(dto.getNewPass(), BCrypt.gensalt()));
+
+        if(user.getState().equals(Catalog.UserStatus.FIRST_LOGIN)) {
+            user.setState(Catalog.UserStatus.ACTIVE);
+        }
         return true;
     }
 

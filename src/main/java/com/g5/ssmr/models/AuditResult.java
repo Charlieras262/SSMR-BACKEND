@@ -28,6 +28,6 @@ public class AuditResult {
     @Column(name = "id_resultado")
     private Integer idResultado;
 
-    @Column(name = "respaldo")
+    @Column(name = "respaldo", columnDefinition = "TEXT")
     private String respaldo;
 }

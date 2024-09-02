@@ -64,6 +64,7 @@ public class AuditService {
         rf.getRequisitos().forEach(requirement -> requirement.setEstado(resulRepository.findByAuditoriaAndRequisito(id, requirement.getId())));
         rf.getRequisitos().forEach(requirement -> requirement.setRespaldo(resulRepository.findByAuditoriaAndRequisitoRespaldo(id, requirement.getId())));
 
+        rf.getRequisitos().stream().sorted((r1, r2) -> r1.getId().compareTo(r2.getId()));
         return AuditDetailDto.builder()
                 .auditoriaDetalle(auditDetail)
                 .marcoRegulatorio(rf)

@@ -26,5 +26,12 @@ public interface UserRepository extends CrudRepository<User, String> {
             "inner join g5_ssmr.catalogue_child cc on us.state = cc.id_catalogue_child", nativeQuery = true)
     List<UserDetailProjection> findAllPopulated();
 
+    @Query(value = "select\n" +
+            "\tus.id_user as username, (us.name || ' ' || us.last_name) as name, us.email, cc.name state\n" +
+            "from g5_ssmr.users us\n" +
+            "inner join g5_ssmr.catalogue_child cc on us.state = cc.id_catalogue_child\n" +
+            "inner join g5_ssmr.user_roles ur on us.id_user = ur.id_user and ur.id_role = 8", nativeQuery = true)
+    List<UserDetailProjection> findAllCompanies();
+
     Optional<User> findByEmailOrIdUser(String email, String idUser);
 }
