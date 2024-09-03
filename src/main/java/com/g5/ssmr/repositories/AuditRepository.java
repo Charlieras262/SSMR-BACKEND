@@ -21,10 +21,11 @@ public interface AuditRepository extends CrudRepository<Audit, Integer> {
             " where a.auditor = :username", nativeQuery = true)
     List<AuditDetailProjection> getAllUser(@Param("username") String username);
 
-    @Query(value = "select a.id, e.nombre as empresa, mr.nombre as \"marcoRegulatorio\", cc.\"name\" as estado, a.observaciones from g5_ssmr.auditoria a \n" +
+    @Query(value = "select a.id, e.nombre as empresa, mr.nombre as \"marcoRegulatorio\", cc.\"name\" as estado, a.observaciones, concat(u.\"name\",' ', u.last_name) \"nombreAuditor\" from g5_ssmr.auditoria a \n" +
             "inner join g5_ssmr.empresas e on a.id_empresa = e.id\n" +
             "inner join g5_ssmr.marcos_regulatorios mr on a.id_marco_regulatorio =mr.id\n" +
             "inner join g5_ssmr.catalogue_child cc on a.id_estado = cc.id_catalogue_child\n" +
+            "inner join g5_ssmr.users u on a.auditor = u.id_user \n" +
             "where e.representante = :username", nativeQuery = true)
     List<AuditDetailProjection> getAll(@Param("username") String username);
 
