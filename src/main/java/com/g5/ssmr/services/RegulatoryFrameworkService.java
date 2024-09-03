@@ -88,12 +88,21 @@ public class RegulatoryFrameworkService {
 
         // requirementRepository.deleteByMarcoRegulatorio(id);
         dto.getRequisitos().forEach(requirement -> {
-            final Requirement requirement1 = requirementRepository.findById(requirement.getId()).orElseThrow(
-                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro el id del marco regulatorio."));
-            requirement1.setNombre(requirement.getNombre());
-            requirement1.setDescripcion(requirement.getDescripcion());
-            requirement1.setMarcoRegulatorio(regulatoryFramework.getId());
-            requirementRepository.save(requirement1);
+            if (requirement.getId() == 0) {
+                requirementRepository.save(Requirement.builder()
+                        .nombre(requirement.getNombre())
+                        .descripcion(requirement.getDescripcion())
+                        .marcoRegulatorio(regulatoryFramework.getId())
+                        .build()
+                );
+            } else {
+                final Requirement requirement1 = requirementRepository.findById(requirement.getId()).orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro el id del marco regulatorio."));
+                requirement1.setNombre(requirement.getNombre());
+                requirement1.setDescripcion(requirement.getDescripcion());
+                requirement1.setMarcoRegulatorio(regulatoryFramework.getId());
+                requirementRepository.save(requirement1);
+            }
         });
     }
 
