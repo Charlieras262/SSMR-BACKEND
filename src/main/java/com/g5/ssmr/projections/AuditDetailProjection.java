@@ -7,4 +7,5 @@ public interface AuditDetailProjection {
     String getEstado();
     String getObservaciones();
     String getNombreAuditor();
+    String getRepresentante();
 }
