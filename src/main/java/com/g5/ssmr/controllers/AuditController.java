@@ -31,15 +31,21 @@ public class AuditController {
     }
 
     @GetMapping("internal/audit/username")
-    @ApiOperation(value = "Retorna todas las auditorias registradas")
+    @ApiOperation(value = "Retorna todas las auditorias registradas de un auditor")
     public List<AuditDetailProjection> getAllAuditsUser(@RequestHeader HttpHeaders headers) {
         return auditService.getAllAuditsUser(headers);
     }
 
     @GetMapping("internal/audit/company")
-    @ApiOperation(value = "Retorna todas las auditorias registradas")
+    @ApiOperation(value = "Retorna todas las auditorias registradas de una empresa")
     public List<AuditDetailProjection> getAllAudits(@RequestHeader HttpHeaders headers) {
         return auditService.getAllAudits(headers);
+    }
+
+    @GetMapping("internal/audit/admin")
+    @ApiOperation(value = "Retorna todas las auditorias registradas")
+    public List<AuditDetailProjection> getAllAuditsAdmin() {
+        return auditService.getAllAuditsAdmin();
     }
 
     @GetMapping("internal/audit/{id}")

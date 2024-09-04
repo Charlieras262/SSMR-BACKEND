@@ -52,6 +52,10 @@ public class AuditService {
         return auditRepository.getAll(username);
     }
 
+    public List<AuditDetailProjection> getAllAuditsAdmin() {
+        return auditRepository.getAllAdmin();
+    }
+
     public AuditDetailDto getAuditById(Integer id) {
         final Audit audit = auditRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontro el id de la auditoria.")

@@ -36,4 +36,13 @@ public interface AuditRepository extends CrudRepository<Audit, Integer> {
             "inner join g5_ssmr.users u on a.auditor = u.id_user \n" +
             "where a.id = :id", nativeQuery = true)
     Optional<AuditDetailProjection> getById(@Param("id") Integer id);
+
+
+    @Query(value = "select a.id, e.nombre as empresa, concat(u2.\"name\", ' ', u2.last_name) \"representante\", mr.nombre as \"marcoRegulatorio\", cc.\"name\" as estado, a.observaciones, concat(u.\"name\",' ', u.last_name) \"nombreAuditor\" from g5_ssmr.auditoria a \n" +
+            "inner join g5_ssmr.empresas e on a.id_empresa = e.id\n" +
+            "inner join g5_ssmr.users u2 on e.representante = u2.id_user\n" +
+            "inner join g5_ssmr.marcos_regulatorios mr on a.id_marco_regulatorio =mr.id\n" +
+            "inner join g5_ssmr.catalogue_child cc on a.id_estado = cc.id_catalogue_child\n" +
+            "inner join g5_ssmr.users u on a.auditor = u.id_user \n", nativeQuery = true)
+    List<AuditDetailProjection> getAllAdmin();
 }
