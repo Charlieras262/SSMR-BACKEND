@@ -116,7 +116,7 @@ public class AuditService {
 
         rf.getRequisitos().forEach(requirement -> requirement.setEstado(resulRepository.findByAuditoriaAndRequisito(id, requirement.getId())));
 
-        if (rf.getRequisitos().stream().anyMatch(requirement -> requirement.getEstado() == null)) {
+        if (rf.getRequisitos().stream().anyMatch(requirement -> requirement.getEstado() == null  && requirement.getLectura() == false)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se han registrado todos los resultados de los requisitos.");
         }
 
