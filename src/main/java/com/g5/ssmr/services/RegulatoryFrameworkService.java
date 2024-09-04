@@ -37,6 +37,7 @@ public class RegulatoryFrameworkService {
                     .nombre(requirement.getNombre())
                     .descripcion(requirement.getDescripcion())
                     .marcoRegulatorio(regulatoryFramework.getId())
+                    .lectura(requirement.getLectura())
                     .build()
             );
         });
@@ -71,6 +72,7 @@ public class RegulatoryFrameworkService {
                                 .id(requirement.getId())
                                 .nombre(requirement.getNombre())
                                 .descripcion(requirement.getDescripcion())
+                                .lectura(requirement.getLectura())
                                 .build()
                         ).sorted(Comparator.comparing(RequirementDto::getId)).collect(Collectors.toList())
                 ).build();
@@ -93,6 +95,7 @@ public class RegulatoryFrameworkService {
             requirement1.setNombre(requirement.getNombre());
             requirement1.setDescripcion(requirement.getDescripcion());
             requirement1.setMarcoRegulatorio(regulatoryFramework.getId());
+            requirement1.setLectura(requirement.getLectura());
             requirementRepository.save(requirement1);
         });
     }

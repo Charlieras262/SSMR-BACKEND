@@ -28,4 +28,7 @@ public class Requirement {
 
     @Column(name = "id_marco_regulatorio")
     private Integer marcoRegulatorio;
+
+    @Column(name = "lectura")
+    private Boolean lectura;
 }

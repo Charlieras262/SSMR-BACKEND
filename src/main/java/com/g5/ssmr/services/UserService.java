@@ -20,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -295,7 +292,11 @@ public class UserService {
      * @author Carlos Ramos (cramosl3@miumg.edu.gt)
      */
     @Transactional
-    public boolean deleteUser(String userId) {
+    public boolean deleteUser(HttpHeaders headers, String userId) {
+        final String username = JwtUtil.parseToken(headers.getFirst("Authorization"));
+        if (!userRoleRepository.existsByIdUserAndIdRoleIsIn(username, Collections.singletonList(Catalog.UserRole.ROOT))) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No tiene los permisos para poder realizar esta acción.");
+        }
         try {
             userRoleRepository.deleteByIdUser(userId);
             userRepository.deleteById(userId);

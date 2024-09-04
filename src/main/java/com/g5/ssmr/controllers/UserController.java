@@ -101,7 +101,7 @@ public class UserController {
 
     @DeleteMapping(value = "internal/users/delete/{username}")
     @ApiOperation(value = "Eliminación de un usuario en base de datos y en servidor de correos.")
-    public boolean deleteUser(@PathVariable String username) {
-        return userService.deleteUser(username);
+    public boolean deleteUser(@RequestHeader HttpHeaders headers, @PathVariable String username) {
+        return userService.deleteUser(headers, username);
     }
 }

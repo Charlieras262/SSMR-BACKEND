@@ -16,4 +16,5 @@ public class RequirementDto {
     private String descripcion;
     private Integer estado;
     private String respaldo;
+    private Boolean lectura;
 }
